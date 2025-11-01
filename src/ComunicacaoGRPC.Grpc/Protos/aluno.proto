@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option csharp_namespace = "ComunicacaoGRPC.Grpc";
+
+service AlunoService {
+  rpc Inserir (AlunoRequest) returns (AlunoResponse);
+  rpc Listar (Empty) returns (ListaAlunosResponse);
+}
+
+message Empty {}
+
+message AlunoRequest {
+  string nome = 1;
+  string matricula = 2;
+}
+
+message AlunoResponse {
+  int32 id = 1;
+  string nome = 2;
+  string matricula = 3;
+}
+
+message ListaAlunosResponse {
+  repeated AlunoResponse alunos = 1;
+}
