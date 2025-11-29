@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option csharp_namespace = "ComunicacaoGRPC.Grpc";
+
+service ApostaService {
+  rpc Inserir (ApostaRequest) returns (ApostaResponse);
+  rpc Listar (ApostaEmpty) returns (ListaApostasResponse);
+}
+
+message ApostaEmpty {}
+
+message ApostaRequest {
+  int32 competicaoId = 1;
+  double valor = 2;
+}
+
+message ApostaResponse {
+  int32 id = 1;
+  int32 competicaoId = 2;
+  double valor = 3;
+  double multiplicador = 4;
+}
+
+message ListaApostasResponse {
+  repeated ApostaResponse apostas = 1;
+}
