@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+option csharp_namespace = "ComunicacaoGRPC.Grpc";
+
+service CompeticaoService {
+  rpc Inserir (CompeticaoRequest) returns (CompeticaoResponse);
+  rpc Listar (CompeticaoEmpty) returns (ListaCompeticoesResponse);
+}
+
+message CompeticaoEmpty {}
+
+message CompeticaoRequest {
+  string nome = 1;
+  google.protobuf.Timestamp data = 2;
+}
+
+message CompeticaoResponse {
+  int32 id = 1;
+  string nome = 2;
+  google.protobuf.Timestamp data = 3;
+}
+
+message ListaCompeticoesResponse {
+  repeated CompeticaoResponse competicoes = 1;
+}

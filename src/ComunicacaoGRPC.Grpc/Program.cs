@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
-builder.Services.AddDbContext<AlunosContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=alunos.db"));
 
 var app = builder.Build();
 
-app.MapGrpcService<AlunoService>();
+app.MapGrpcService<CompeticaoService>();
+app.MapGrpcService<ApostaService>();
 app.MapGet("/", () => "Servidor gRPC de Alunos está rodando!");
 
 app.Run();

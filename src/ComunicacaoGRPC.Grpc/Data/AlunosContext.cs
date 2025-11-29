@@ -1,11 +1,12 @@
-using Alunos.GrpcServer.Models;
+using ComunicacaoGRPC.Grpc.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComunicacaoGRPC.Grpc.Data;
 
-public class AlunosContext : DbContext
+public class ApplicationDbContext : DbContext
 {
-    public AlunosContext(DbContextOptions<AlunosContext> options) : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    public DbSet<Aluno> Alunos { get; set; }
+    public DbSet<Competicao> Competicoes { get; set; }
+    public DbSet<Aposta> Apostas { get; set; }
 }

@@ -1,1 +1,66 @@
-<h1>Hello world</h1>
+@{
+    ViewData["Title"] = "Início";
+}
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+        <h1 class="display-5 fw-bold">Bem-vindo à casa de apostas do brasileiro médio!</h1>
+        <p class="text-muted">Onde a sorte é duvidosa, mas a tecnologia é de primeira!</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <h4 class="card-title mb-3">Sobre o Sistema</h4>
+
+            <p>
+                Este sistema foi desenvolvido utilizando <strong>ASP.NET Core MVC</strong> no frontend e
+                <strong>gRPC</strong> para comunicação com o backend. Isso garante uma comunicação
+                extremamente rápida, eficiente e com baixo consumo de banda — ideal para aplicações
+                modernas que exigem alta performance.
+            </p>
+
+            <h5 class="mt-4">Como o gRPC é utilizado aqui?</h5>
+            <ul>
+                <li>O frontend envia requisições gRPC (através de clients gerados automaticamente).</li>
+                <li>O backend expõe serviços como: <strong>CompetiçãoService</strong> e <strong>ApostaService</strong>.
+                </li>
+                <li>As mensagens trafegam usando <strong>Protocol Buffers (.proto)</strong>, garantindo alto desempenho.
+                </li>
+                <li>
+                    Os dados de competições e apostas são enviados e recebidos via contratos fortemente tipados
+                    definidos nos arquivos <strong>.proto</strong>.
+                </li>
+            </ul>
+
+            <h5 class="mt-4">Arquitetura simplificada</h5>
+            <p>O sistema segue esta estrutura:</p>
+
+            <ul>
+                <li><strong>Projeto gRPC</strong> — controla regras de negócio e acesso ao banco.</li>
+                <li><strong>Projeto MVC</strong> — renderiza as páginas e consome o serviço gRPC.</li>
+                <li><strong>Entity Framework Core</strong> — para persistência de dados.</li>
+            </ul>
+
+            <h5 class="mt-4">O que você pode fazer?</h5>
+            <ul>
+                <li>Cadastrar competições</li>
+                <li>Visualizar competições cadastradas</li>
+                <li>Registrar apostas vinculadas a uma competição específica</li>
+                <li>Consultar todas as apostas realizadas</li>
+            </ul>
+
+            <div class="mt-4 text-center">
+                <a href="/Competicoes" class="btn btn-primary btn-lg me-2">
+                    Gerenciar Competições
+                </a>
+
+                <a href="/Apostas" class="btn btn-success btn-lg">
+                    Registrar Apostas
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
