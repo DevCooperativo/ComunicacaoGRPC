@@ -19,6 +19,7 @@
   <ItemGroup>
     <Protobuf Include="../ComunicacaoGRPC.Grpc/Protos/competicao.proto" GrpcServices="Client" />
     <Protobuf Include="../ComunicacaoGRPC.Grpc/Protos/aposta.proto" GrpcServices="Client" />
+    <Protobuf Include="../ComunicacaoGRPC.Grpc/Protos/integrantes.proto" GrpcServices="Client" />
   </ItemGroup>
 
 

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option csharp_namespace = "ComunicacaoGRPC.Grpc";
+
+service IntegrantesService {
+  rpc Listar (IntegrantesEmpty) returns (ListaIntegrantesResponse);
+}
+
+message IntegrantesEmpty {}
+
+message ListaIntegrantesResponse {
+  repeated string integrantes = 1;
+}
