@@ -12,6 +12,7 @@ var app = builder.Build();
 
 app.MapGrpcService<CompeticaoService>();
 app.MapGrpcService<ApostaService>();
+app.MapGrpcService<IntegrantesService>();
 app.MapGet("/", () => "Servidor gRPC de Alunos está rodando!");
 
 app.Run();
