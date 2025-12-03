@@ -31,7 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="../Apostas/Index.html">Apostas</a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Integrantes/Index.html">Integrantes</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -136,14 +138,18 @@
         return new Date(ts.seconds * 1000 + ts.nanos / 1_000_000).toLocaleDateString("pt-BR", { year: 'numeric', month: 'long', day: 'numeric' });
     }
     const fetchFromServer = async () => {
-        const req = await fetch("http://127.0.0.1:5000/apostas", { method: "GET", headers: { "host": "127.0.0.1", "Content-Type": "application/json" } })
-        if (!req)
-            return;
-        const bodyJson = await req.json()
-        console.log(bodyJson)
-        Object.values(bodyJson.apostas).map(x => buildTable("tabela_body", x))
+        try {
+            const req = await fetch("http://127.0.0.1:5000/apostas", { method: "GET", headers: { "host": "127.0.0.1", "Content-Type": "application/json" } })
+            if (!req)
+                return;
+            const bodyJson = await req.json()
+            console.log(bodyJson)
+            Object.values(bodyJson.apostas).map(x => buildTable("tabela_body", x))
 
-        Object.values(bodyJson.competicoes).map(x => buildSelect("competicaoId", x))
+            Object.values(bodyJson.competicoes).map(x => buildSelect("competicaoId", x))
+        } catch (err) {
+            alert(err.message)
+        }
 
 
     }

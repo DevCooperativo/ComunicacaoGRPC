@@ -32,6 +32,10 @@
                         <a class="nav-link" href="../Apostas/Index.html">Apostas</a>
                     </li>
 
+                    <li class="nav-item">
+                        <a class="nav-link active" href="../Integrantes/Index.html">Integrantes</a>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -49,13 +53,8 @@
                     Aqui estão os integrantes responsáveis pelo desenvolvimento do sistema com comunicação via gRPC.
                 </p>
 
-                <ul class="list-group">
-                    @foreach (var nome in Model)
-                    {
-                    <li class="list-group-item">
-                        <i class="bi bi-person-circle me-2"></i> @nome
-                    </li>
-                    }
+                <ul id="lista" class="list-group">
+
                 </ul>
             </div>
         </div>
@@ -64,3 +63,35 @@
 </body>
 
 </html>
+
+<script>
+    const buildList = (listId, data) => {
+        const ulElement = document.getElementById(listId)
+        if (!ulElement) {
+            alert("Elemento UL não encontrado")
+            return;
+        }
+        const newLi = `
+        <li class="list-group-item">
+            <i class="bi bi-person-circle me-2"></i>${data}
+        </li>
+        `
+        ulElement.innerHTML = ulElement.innerHTML + newLi
+    }
+    const fetchFromServer = async () => {
+        try {
+            const req = await fetch("http://127.0.0.1:5000/integrantes", { method: "GET", headers: { "host": "127.0.0.1", "Content-Type": "application/json" } })
+            if (!req)
+                return;
+            const bodyJson = await req.json()
+            console.log(bodyJson)
+            Object.values(bodyJson).map(x => buildList("lista", x))
+
+        } catch (err) {
+            alert(err.message)
+        }
+
+
+    }
+    window.addEventListener("DOMContentLoaded", fetchFromServer)
+</script>

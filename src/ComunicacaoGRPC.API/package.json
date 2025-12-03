@@ -15,6 +15,7 @@
     "@grpc/proto-loader": "^0.8.0",
     "cors": "^2.8.5",
     "express": "^5.2.1",
+    "google-protobuf": "^4.0.1",
     "grpc-web": "^2.0.2",
     "sqlite3": "^5.1.7",
     "typescript": "^5.9.3"
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
+    "@types/google-protobuf": "^3.15.12",
     "@types/spdy": "^3.4.9",
     "ts-node-dev": "^2.0.0"
   }
