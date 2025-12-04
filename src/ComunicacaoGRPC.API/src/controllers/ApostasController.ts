@@ -47,21 +47,26 @@ export class ApostasController {
 
     async Inserir(req: Request, res: Response) {
         try {
-        const request = {
-            competicaoId: Number(req.body.competicaoId),
-            valor: Number(req.body.valor)
-        };
+            if (!req.body.competicaoId)
+                return res.status(400).json({ message: "Competição é obrigatória" })
+            if (!req.body.valor) {
+                return res.status(400).json({ message: "O valor é obrigatório" })
+            }
+            const request = {
+                competicaoId: Number(req.body.competicaoId),
+                valor: Number(req.body.valor)
+            };
 
-        const apostaResult = await new Promise((resolve, reject) => {
-            this._apostaClient.Inserir(request, (err: any, response: any) => {
-                if (err) return reject(err);
-                resolve(response);
+            const apostaResult = await new Promise((resolve, reject) => {
+                this._apostaClient.Inserir(request, (err: any, response: any) => {
+                    if (err) return reject(err);
+                    resolve(response);
+                });
             });
-        });
 
-        res.status(200).json(apostaResult);
-    } catch (err) {
-        res.status(500).json({ error: err });
-    }
+            res.status(200).json(apostaResult);
+        } catch (err) {
+            res.status(500).json({ error: err });
+        }
     }
 }

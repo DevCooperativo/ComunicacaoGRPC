@@ -31,6 +31,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../Apostas/Index.html">Apostas</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../Integrantes/Index.html">Integrantes</a>
+                    </li>
 
                 </ul>
             </div>
@@ -46,16 +49,16 @@
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
 
-                    <form method="post" action="/Competicoes/Inserir" class="row g-3">
+                    <form method="post" id="form" class="row g-3">
 
                         <div class="col-md-5">
                             <label class="form-label">Nome</label>
-                            <input type="text" name="nome" class="form-control" placeholder="Nome" required />
+                            <input id="nome" type="text" name="nome" class="form-control" placeholder="Nome" required />
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label">Data</label>
-                            <input type="date" name="data" class="form-control" required />
+                            <input id="data" type="date" name="data" class="form-control" required />
                         </div>
 
                         <div class="col-md-3 d-flex align-items-end">
@@ -76,15 +79,7 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    @foreach (var competicao in Model)
-                    {
-                    <tr>
-                        <td>@competicao.Id</td>
-                        <td>@competicao.Nome</td>
-                        <td>@competicao.Data.ToDateTime().ToString("dd/MM/yyyy")</td>
-                    </tr>
-                    }
+                <tbody id="tabela_body">
                 </tbody>
             </table>
 
@@ -95,3 +90,59 @@
 
 </html>
 
+<script>
+    const form = document.getElementById("form")
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById("nome").value
+        const data = document.getElementById("data").value
+        console.log(nome, data)
+
+        const req = await fetch("http://localhost:5000/competicoes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nome: nome, data: data }) })
+        if (req.status >= 400) {
+            console.log(req)
+            const bodyJson = await req.json()
+            alert(bodyJson.message)
+            return
+        }
+        window.location.reload()
+
+    })
+    function fromGrpcTimestamp(ts) {
+        return new Date(ts.seconds * 1000 + ts.nanos / 1_000_000).toLocaleDateString("pt-BR", { year: 'numeric', month: 'long', day: 'numeric' });
+    }
+    const buildTable = (tableId, data) => {
+        console.log(data)
+        if (data === undefined) return
+        const tableBody = document.querySelector(`#${tableId}`)
+        if (!tableBody) {
+            console.error("Tabela não encontrada")
+            return
+        }
+        const newTr = `
+        <tr>
+            <td>${data.id}</td>
+            <td>${data.nome}</td>
+            <td>${data.data && fromGrpcTimestamp(data.data)}</td>
+        </tr>
+        `
+        tableBody.innerHTML += newTr
+    }
+    const fetchFromServer = async () => {
+        try {
+            const req = await fetch("http://127.0.0.1:5000/competicoes", { method: "GET", headers: { "host": "127.0.0.1", "Content-Type": "application/json" } })
+            if (!req || req.status >= 400)
+                return;
+            const bodyJson = await req.json()
+            console.log(bodyJson)
+            Object.values(bodyJson).map(x => buildTable("tabela_body", x))
+
+        } catch (err) {
+            alert(err.message)
+        }
+
+
+    }
+    window.addEventListener("DOMContentLoaded", fetchFromServer)
+</script>
