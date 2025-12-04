@@ -100,8 +100,13 @@
         console.log(nome, data)
 
         const req = await fetch("http://localhost:5000/competicoes", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nome: nome, data: data }) })
-        if (req)
-            window.location.reload()
+        if (req.status >= 400) {
+            console.log(req)
+            const bodyJson = await req.json()
+            alert(bodyJson.message)
+            return
+        }
+        window.location.reload()
 
     })
     function fromGrpcTimestamp(ts) {

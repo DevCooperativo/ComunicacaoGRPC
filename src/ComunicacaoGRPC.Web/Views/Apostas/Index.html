@@ -105,8 +105,13 @@
         const competicaoId = Number(document.getElementById("competicaoId").value)
 
         const req = await fetch("http://localhost:5000/apostas", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ competicaoId, valor }) })
-        if (req)
-            window.location.reload()
+        if (req.status >= 400) {
+            console.log(req)
+            const bodyJson = await req.json()
+            alert(bodyJson.message)
+            return
+        }
+        window.location.reload()
 
     })
 

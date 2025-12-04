@@ -28,13 +28,19 @@ export class CompeticaoController {
     async Inserir(req: Request, res: Response) {
         try {
             const { data, nome } = req.body;
-            console.log("DATA RECEBIDA:", data);
+            if (!data)
+                return res.status(400).json({ message: "Data da competição é obrigatória" })
 
-            // "2053-06-12"
+
             const [year, month, day] = data.split("-").map(Number);
 
-            // Criar data em UTC manualmente → 100% sem erro
             const jsDate = new Date(Date.UTC(year, month - 1, day));
+            if (jsDate.getTime() < (new Date().getTime()))
+                return res.status(400).json({ message: "Registre competições que ocorrerão só a partir do dia seguinte" })
+            if (Number((String(data)).split("-")[0]) > 9999)
+                return res.status(403).json({ message: "A gente vai morrer antes..." })
+            if (!nome)
+                return res.status(400).json({ message: "Nome da competição é obrigatório" })
 
             console.log("JS DATE:", jsDate, "TIME:", jsDate.getTime());
 
