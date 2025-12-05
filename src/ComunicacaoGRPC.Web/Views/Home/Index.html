@@ -56,7 +56,7 @@
                     <h4 class="card-title mb-3">Sobre o Sistema</h4>
 
                     <p>
-                        Este sistema foi desenvolvido utilizando <strong>ASP.NET Core MVC</strong> no frontend e
+                        Este sistema foi desenvolvido utilizando <strong>HTML, CSS e Js</strong> no frontend e uma API em <strong>NodeJS</strong> com
                         <strong>gRPC</strong> para comunicação com o backend. Isso garante uma comunicação
                         extremamente rápida, eficiente e com baixo consumo de banda — ideal para aplicações
                         modernas que exigem alta performance.
@@ -65,9 +65,10 @@
                     <h5 class="mt-4">Como o gRPC é utilizado aqui?</h5>
                     <ul>
                         <li>O frontend envia requisições gRPC (através de clients gerados automaticamente).</li>
-                        <li>O backend expõe serviços como: <strong>CompetiçãoService</strong> e
-                            <strong>ApostaService</strong>.
+                        <li>A API expõe controllers como: <strong>CompetiçãoController</strong> e
+                            <strong>ApostaController</strong>.
                         </li>
+                        <li>A API receberá as requisições, realizará validaçoes e estruturação dos dados, encaminhando ao backend.</li>
                         <li>As mensagens trafegam usando <strong>Protocol Buffers (.proto)</strong>, garantindo alto
                             desempenho.
                         </li>
@@ -82,7 +83,8 @@
 
                     <ul>
                         <li><strong>Projeto gRPC</strong> — controla regras de negócio e acesso ao banco.</li>
-                        <li><strong>Projeto MVC</strong> — renderiza as páginas e consome o serviço gRPC.</li>
+                        <li><strong>Projeto API</strong> — expõem endpoints REST a serem consumidos pelo frontend e encaminha requisições gRPC.</li>
+                        <li><strong>Projeto Web</strong> — renderiza páginas e consome endpoints REST.</li>
                         <li><strong>Entity Framework Core</strong> — para persistência de dados.</li>
                     </ul>
 
